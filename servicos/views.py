@@ -4,12 +4,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 import json
 from datetime import datetime
+from gestao_academia.especialidade.models import Especialidade
+from gestao_academia.servico.models import Aula
+
+from gestao_academia.usuario.models import Cliente, Professor
 # Esse é o controller
 
-from .models import *
 
-def index(request):
-    return HttpResponse("Olá, Mundo!")
 
 @csrf_exempt
 def cadastrar_aula(request):
