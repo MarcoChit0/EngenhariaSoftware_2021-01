@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpRespon
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-import json
+from json import *
 from datetime import datetime
 # Esse é o controller
 
@@ -23,7 +23,7 @@ def cadastrar_aula(request):
     try:
         # Pega infos do body da requisição
         # Considero um JSON com os elementos citados, se não tiver esses dados, erro
-        infos = json.loads(request.body)
+        infos = loads(request.body)
         timestamp = infos["timestamp"]
         especialidade_id = infos["especialidade_id"]
         especialidade = Especialidade.objects.get(pk=especialidade_id)
