@@ -29,6 +29,6 @@ class Aula(Servico):
 
 
 class Consulta(Servico):
-    medico = models.OneToOneField(Medico, on_delete=models.CASCADE)
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     class Meta:
         unique_together = (('medico', 'data_hora'))

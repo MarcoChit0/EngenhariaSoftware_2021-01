@@ -12,7 +12,7 @@ def index(request):
     return HttpResponse("Olá, Mundo!")
 
 @csrf_exempt
-def cadastrar_servico(request, cliente_id, professor_id, especialidade_id, timestamp):
+def cadastrar_aula(request, cliente_id, professor_id, especialidade_id, timestamp):
     try:
         cliente = Cliente.objects.get(pk=cliente_id)
     except:
@@ -42,6 +42,32 @@ def cadastrar_servico(request, cliente_id, professor_id, especialidade_id, times
     except:
         raise HttpResponseServerError("Erro na criação da aula")
 
+
+@csrf_exempt
+def cadastrar_consulta_medica(request, cliente_id, medico_id, timestamp):
+    try:
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except:
+        raise HttpResponseBadRequest("Erro! Cliente inválido")
+    try:
+        medico = Medico.objects.get(pk=medico_id)
+    except:
+        raise HttpResponseBadRequest("Erro! Medico inválido")
+    
+    try:
+        data_hora=datetime.fromtimestamp(timestamp)
+    except:
+        raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
+
+    if data_hora < datetime.now():
+        raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
+
+    try:
+        nova_consulta = Consulta(data_hora= data_hora, medico=medico, cliente = cliente)
+        nova_consulta.save()
+        return HttpResponse("Success")
+    except:
+        raise HttpResponseServerError("Erro na criação da aula")
 
 def consultar_aula(request, cliente_id):
     try:
