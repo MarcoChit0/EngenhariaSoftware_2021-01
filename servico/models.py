@@ -4,8 +4,7 @@ from especialidade.models import Especialidade
 from usuario.models import Cliente, Medico, Professor
 
 class Servico(models.Model):
-    cliente = models.OneToOneField(Cliente, blank=True, null=True,
-                                   default=None, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data_hora = models.DateTimeField()
 
     class Meta:
