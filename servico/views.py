@@ -12,24 +12,31 @@ def index(request):
     return HttpResponse("Olá, Mundo!")
 
 @csrf_exempt
-def cadastrar_servico(request, professor_id, especialidade_id, timestamp):
+def cadastrar_servico(request, cliente_id, professor_id, especialidade_id, timestamp):
+    try:
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except:
+        raise HttpResponseBadRequest("Erro! Cliente inválido")
     try:
         professor = Professor.objects.get(pk=professor_id)
     except:
-        raise HttpResponseForbidden("Erro! Sem professor definido corretamente")
+        raise HttpResponseBadRequest("Erro! Professor inválido")
 
     try:
         especialidade = Especialidade.objects.get(pk=especialidade_id)
     except:
-        raise HttpResponseBadRequest("Erro! Sem especialidade definida corretamente")
+        raise HttpResponseBadRequest("Erro! Especialidade inválida")
     
     try:
         data_hora=datetime.fromtimestamp(timestamp)
     except:
-        raise HttpResponseBadRequest("Erro! Sem data definida corretamente")
+        raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
+
+    if data_hora < datetime.now():
+        raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
 
     try:
-        nova_aula = Aula(data_hora= data_hora, professor=professor,especialidade=especialidade)
+        nova_aula = Aula(data_hora= data_hora, professor=professor,especialidade=especialidade, cliente = cliente)
         nova_aula.save()
         return HttpResponse("Success")
     except:
@@ -37,34 +44,30 @@ def cadastrar_servico(request, professor_id, especialidade_id, timestamp):
 
 
 def consultar_aula(request, cliente_id):
-    response = Aula.objects.filter(cliente_id)
-    return HttpResponse(response)
+    try:
+        aulas = Aula.objects.filter(cliente_id=cliente_id)
+        return HttpResponse(aulas)
+    except:
+        raise HttpResponseServerError("Erro")
 
 
 def consultar_consulta_medica(request, cliente_id):
-    response = ''
-    # retornar lista com aulas cadastradas
-    # e sem alunos inscritos
-    aulas_disponiveis = Aula.objects.filter(cliente_id=None)
-
-    # TODO transformar a response em algo estruturado (JSON/XML?)
-    if len(aulas_disponiveis):
-        response += f'Há {len(aulas_disponiveis)} aulas disponíveis no momento:\n\n'
-        for aula in aulas_disponiveis:
-            response += f'\tHorário: {aula.data_hora} - Professor: {aula.professor}\n'
-    else:
-        response = 'Não há aulas disponíveis no momento'
-
-    return HttpResponse(response)
-
-def reservar_aula(request):
     try:
-        aluno_id = int(request.GET.get("aluno_id"))
-        aula_id = int(request.GET.get("aula_id"))
-        aluno = Cliente.objects.get(pk=aluno_id)
+        consultas = Consulta.objects.filter(cliente_id=cliente_id)
+        return HttpResponse(consultas)
+    except:
+        raise HttpResponseServerError("Erro")
+
+
+def reservar_aula(request, cliente_id, aula_id):
+    try:
+        aluno = Cliente.objects.get(pk=cliente_id)
+    except:
+        raise HttpResponseForbidden('Erro! Cliente não encontrado')
+    try:
         aula = Aula.objects.get(pk=aula_id)
     except:
-        raise HttpResponseForbidden('Aula e/ou aluno não encontrado. Cancelando operação.')
+        raise HttpResponseForbidden('Erro! Aula não encontrada')
 
     # Checando possibilidade
     if aluno.status_assinatura != 'ativa':
