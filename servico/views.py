@@ -8,9 +8,6 @@ from datetime import datetime
 
 from .models import *
 
-TEMPO_AULA_EM_SEGUNDOS = 3600
-TEMPO_CONSULTA_MEDICA_EM_SEGUNDOS = 3600
-
 def index(request):
     return HttpResponse("Olá, Mundo!")
 
