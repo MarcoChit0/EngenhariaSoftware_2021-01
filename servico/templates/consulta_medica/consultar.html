@@ -1,0 +1,8 @@
+<html>
+<head>
+<h1>Histórico de consultas:</h1>
+</head>
+<body>
+{% for consulta in lista_consultas_medicas %}
+	<p>{{ forloop.counter }}. {{ consulta }}</p>
+{% endfor %}
