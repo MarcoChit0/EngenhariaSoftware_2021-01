@@ -25,10 +25,19 @@ class Aula(Servico):
         mes = self.data_hora.month
         hora = self.data_hora.hour
         minuto = self.data_hora.minute
-        return f"{prof}, {espec}; {dia}/{mes} {hora}:{minuto}"
+        return f"Professor: {prof}, {espec}; Data: {dia}/{mes}; Hora: {hora}:{minuto}"
 
 
 class Consulta(Servico):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+
     class Meta:
         unique_together = (('medico', 'data_hora'))
+
+    def __str__(self):
+            med = self.medico.name
+            dia = self.data_hora.day
+            mes = self.data_hora.month
+            hora = self.data_hora.hour
+            minuto = self.data_hora.minute
+            return f"Médico: {med}; Data: {dia}/{mes}; Hora: {hora}:{minuto}"
