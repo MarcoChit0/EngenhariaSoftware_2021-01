@@ -12,35 +12,36 @@ def index(request):
     return HttpResponse("Olá, Mundo!")
 
 @csrf_exempt
-def cadastrar_aula(request):
-    # Verifica se o id é de professor, senão, não pode criar
+def cadastrar_servico(request, professor_id, especialidade_id, timestamp):
     try:
-        professor_id = int(request.GET.get("professor"))
         professor = Professor.objects.get(pk=professor_id)
     except:
-        raise HttpResponseForbidden("Apenas professores podem criar aulas novas")
+        raise HttpResponseForbidden("Erro! Sem professor definido corretamente")
 
     try:
-        # Pega infos do body da requisição
-        # Considero um JSON com os elementos citados, se não tiver esses dados, erro
-        infos = loads(request.body)
-        timestamp = infos["timestamp"]
-        especialidade_id = infos["especialidade_id"]
         especialidade = Especialidade.objects.get(pk=especialidade_id)
     except:
-        raise HttpResponseBadRequest("Erro na requisição, verificar corpo da consulta")
+        raise HttpResponseBadRequest("Erro! Sem especialidade definida corretamente")
+    
+    try:
+        data_hora=datetime.fromtimestamp(timestamp)
+    except:
+        raise HttpResponseBadRequest("Erro! Sem data definida corretamente")
 
     try:
-        # Tenta criar nova aula, se der retorna, se não, erro do servidor
-        nova_aula = Aula(data_hora=datetime.fromtimestamp(timestamp), professor=professor,
-                         especialidade=especialidade)
+        nova_aula = Aula(data_hora= data_hora, professor=professor,especialidade=especialidade)
         nova_aula.save()
         return HttpResponse("Success")
     except:
         raise HttpResponseServerError("Erro na criação da aula")
 
 
-def consultar_aulas(request):  # TODO receber data? [filtros]
+def consultar_aula(request, cliente_id):
+    response = Aula.objects.filter(cliente_id)
+    return HttpResponse(response)
+
+
+def consultar_consulta_medica(request, cliente_id):
     response = ''
     # retornar lista com aulas cadastradas
     # e sem alunos inscritos
@@ -55,7 +56,6 @@ def consultar_aulas(request):  # TODO receber data? [filtros]
         response = 'Não há aulas disponíveis no momento'
 
     return HttpResponse(response)
-
 
 def reservar_aula(request):
     try:

@@ -5,8 +5,9 @@ from . import views
 app_name = 'servico'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('aula/cadastrar/', views.cadastrar_aula, name='cadastrar_aula'),
-    path('aula/consultar/', views.consultar_aulas, name='consultar_aula'),
+    path('aula/cadastrar/<int:professor_id>/<int:especialidade_id>/<int:timestamp>/', views.cadastrar_servico, name='cadastrar_aula'),
+    path('aula/consultar/<int:cliente_id>/', views.consultar_aula, name='consultar_aula'),
+    path('consulta-medica/consultar/<int:cliente_id>/', views.consultar_consulta_medica, name='consultar_aula'),
     path('aula/reservar/', views.reservar_aula, name='reservar_aula'),
 ]
 
