@@ -21,11 +21,12 @@ class Aula(Servico):
     def __str__(self):
         prof = self.professor.name
         espec = self.especialidade.name
+        ano = self.data_hora.year
         dia = self.data_hora.day
         mes = self.data_hora.month
         hora = self.data_hora.hour
         minuto = self.data_hora.minute
-        return f"Professor: {prof}, {espec}; Data: {dia}/{mes}; Hora: {hora}:{minuto}"
+        return f"{prof},{espec}; {dia}/{mes}/{ano}; {hora}:{minuto}"
 
 
 class Consulta(Servico):
@@ -40,4 +41,5 @@ class Consulta(Servico):
             mes = self.data_hora.month
             hora = self.data_hora.hour
             minuto = self.data_hora.minute
-            return f"Médico: {med}; Data: {dia}/{mes}; Hora: {hora}:{minuto}"
+            ano = self.data_hora.year
+            return f"{med}; {dia}/{mes}/{ano}; {hora}:{minuto}"

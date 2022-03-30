@@ -1,3 +1,4 @@
+from copy import deepcopy
 from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -65,7 +66,7 @@ def cadastrar_consulta_medica(request, medico_id, timestamp):
 
 def consultar_aula(request, cliente_id):
     try:
-        aulas = Aula.objects.filter(cliente_id=cliente_id)
+        aulas = Aula.objects.filter(cliente_id=cliente_id).order_by('-data_hora')
         context = {'lista_aulas':aulas}
         return render(request, 'aula/consultar.html', context)
     except:
@@ -73,7 +74,7 @@ def consultar_aula(request, cliente_id):
 
 def consultar_consulta_medica(request, cliente_id):
     try:
-        consultas = Consulta.objects.filter(cliente_id=cliente_id)
+        consultas = Consulta.objects.filter(cliente_id=cliente_id).order_by('-data_hora')
         context = {'lista_consultas_medicas':consultas}
         return render(request, 'consulta_medica/consultar.html', context)
     except:
@@ -122,3 +123,24 @@ def reservar_consulta_medica(request, cliente_id, consulta_medica_id):
     consulta_medica.save()
     return HttpResponse(
         f'Consulta Médica reservada!\n\tHorário: {consulta_medica.data_hora}\n\tMédico: {consulta_medica.medico}\n\tPaciente: {consulta_medica.cliente}')
+
+def ordena_consultas(lista_strings):
+    lista_strings_data = []
+    for string in lista_strings:
+        s = deepcopy(string)
+        substring = s.split(";")
+        dia_mes_ano = substring[1].split("/")
+        hora_minuto = substring[2].split(":")
+        dia = int(dia_mes_ano[0])
+        mes = int(dia_mes_ano[1])
+        ano = int(dia_mes_ano[2])
+        hora = int(hora_minuto[0])
+        minuto = int(hora_minuto[1])
+        data_hora = datetime(ano,mes,dia,hora,minuto)
+        par_string_data = (string, data_hora)
+        lista_strings_data.append(par_string_data)
+    lista_strings_data.sort(key=lambda i:i[1], reverse=True)
+    nova_lista_strings = []
+    for str in lista_strings_data:
+        nova_lista_strings.append(str[0])
+    return nova_lista_strings
