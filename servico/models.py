@@ -1,10 +1,11 @@
 from django.db import models
+from django.db.models import CheckConstraint, Q
+
 from especialidade.models import Especialidade
 
 from usuario.models import Cliente, Medico, Professor
 
 class Servico(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)
     data_hora = models.DateTimeField()
 
     class Meta:
@@ -14,6 +15,8 @@ class Servico(models.Model):
 class Aula(Servico):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE)
+    max_alunos = models.IntegerField()
+    alunos = models.ManyToManyField(Cliente, blank=True, max_length=max_alunos)
 
     class Meta:
         unique_together = (('professor', 'data_hora'))
@@ -30,6 +33,7 @@ class Aula(Servico):
 
 
 class Consulta(Servico):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
 
     class Meta:

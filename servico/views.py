@@ -94,13 +94,18 @@ def reservar_aula(request, cliente_id, aula_id):
     if aluno.status_assinatura != 'ativa':
         return HttpResponse(f'O aluno {aluno} não está com sua assinatura em dia. Cancelando operação.')
 
-    if aula.cliente is not None:
-        return HttpResponse(f'Essa aula já está reservada. Cancelando operação.')
+    if aula.alunos.filter(id__exact=cliente_id)[0].id == cliente_id:
+        return HttpResponse(f'Você ja está nessa aula. Cancelando operação.')
 
-    aula.cliente = aluno
+    if aula.alunos.count() >= aula.max_alunos:
+        return HttpResponse(f'Essa aula já está cheia. Cancelando operação.')
+
+    aula.alunos.add(aluno)
     aula.save()
+    # Para garantir que o aluno ta ai
+    saved_aluno = aula.alunos.filter(id__exact=cliente_id)[0]
     return HttpResponse(
-        f'Aula reservada!\n\tHorário: {aula.data_hora}\n\tProfessor: {aula.professor}\n\tAluno: {aula.cliente}')
+        f'Aula reservada!\n\tHorário: {aula.data_hora}\n\tProfessor: {aula.professor}\n\tAluno: {saved_aluno}')
 
 
 def reservar_consulta_medica(request, cliente_id, consulta_medica_id):
