@@ -1,0 +1,14 @@
+<html>
+<head>
+<h1>Histórico de servicos:</h1>
+</head>
+<body>
+<h2>Aulas</h2>
+{% for aula in lista_aulas %}
+	<p>{{ forloop.counter }}. {{ aula }}</p>
+{% endfor %}
+
+<h2>Consultas</h2>
+{% for consulta in lista_consultas_medicas %}
+	<p>{{ forloop.counter }}. {{ consulta }}</p>
+{% endfor %}

@@ -9,6 +9,7 @@ from datetime import datetime
 
 from .models import *
 
+
 def index(request):
     return HttpResponse("Olá, Mundo!")
 
@@ -25,21 +26,22 @@ def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
         especialidade = Especialidade.objects.get(pk=especialidade_id)
     except:
         raise HttpResponseBadRequest("Erro! Especialidade inválida")
-    
+
     try:
-        data_hora=datetime.fromtimestamp(timestamp)
+        data_hora = datetime.fromtimestamp(timestamp)
     except:
         raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
 
     if data_hora < datetime.now():
         raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
-    
+
     try:
-        nova_aula = Aula(data_hora= data_hora, professor=professor,especialidade=especialidade)
+        nova_aula = Aula(data_hora=data_hora, professor=professor, especialidade=especialidade)
         nova_aula.save()
         return HttpResponse("Aula criada com sucesso!")
     except:
         raise HttpResponseServerError("Erro na criação da aula")
+
 
 # verificar se cliente é válido
 @csrf_exempt
@@ -48,35 +50,60 @@ def cadastrar_consulta_medica(request, medico_id, timestamp):
         medico = Medico.objects.get(pk=medico_id)
     except:
         raise HttpResponseBadRequest("Erro! Medico inválido")
-    
+
     try:
-        data_hora=datetime.fromtimestamp(timestamp)
+        data_hora = datetime.fromtimestamp(timestamp)
     except:
         raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
-    
+
     if data_hora < datetime.now():
         raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
 
     try:
-        nova_consulta = Consulta(data_hora= data_hora, medico=medico)
+        nova_consulta = Consulta(data_hora=data_hora, medico=medico)
         nova_consulta.save()
         return HttpResponse("Consulta Médica criada com sucesso!")
     except:
         raise HttpResponseServerError("Erro na criação da aula")
 
+
 def consultar_aula(request, cliente_id):
     try:
-        aulas = Aula.objects.filter(cliente_id=cliente_id).order_by('-data_hora')
-        context = {'lista_aulas':aulas}
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except:
+        raise HttpResponseBadRequest("Cliente não encontrado")
+    try:
+        aulas = Aula.buscar_por_cliente(cliente)
+        context = {'lista_aulas': aulas}
         return render(request, 'aula/consultar.html', context)
     except:
         raise HttpResponseServerError("Erro")
 
+
 def consultar_consulta_medica(request, cliente_id):
     try:
-        consultas = Consulta.objects.filter(cliente_id=cliente_id).order_by('-data_hora')
-        context = {'lista_consultas_medicas':consultas}
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except:
+        raise HttpResponseBadRequest("Cliente não encontrado")
+    try:
+        consultas = Consulta.buscar_por_cliente(cliente)
+        context = {'lista_consultas_medicas': consultas}
         return render(request, 'consulta_medica/consultar.html', context)
+    except:
+        raise HttpResponseServerError("Erro")
+
+
+def consultar_servicos(request, cliente_id):
+    try:
+        cliente = Cliente.objects.get(pk=cliente_id)
+    except:
+        raise HttpResponseBadRequest("Cliente não encontrado")
+    try:
+        consultas = Consulta.buscar_por_cliente(cliente)
+        aulas = Aula.buscar_por_cliente(cliente)
+        context = {'lista_consultas_medicas': consultas,
+                   'lista_aulas': aulas}
+        return render(request, 'geral/consultar.html', context)
     except:
         raise HttpResponseServerError("Erro")
 
@@ -129,6 +156,7 @@ def reservar_consulta_medica(request, cliente_id, consulta_medica_id):
     return HttpResponse(
         f'Consulta Médica reservada!\n\tHorário: {consulta_medica.data_hora}\n\tMédico: {consulta_medica.medico}\n\tPaciente: {consulta_medica.cliente}')
 
+
 def ordena_consultas(lista_strings):
     lista_strings_data = []
     for string in lista_strings:
@@ -141,10 +169,10 @@ def ordena_consultas(lista_strings):
         ano = int(dia_mes_ano[2])
         hora = int(hora_minuto[0])
         minuto = int(hora_minuto[1])
-        data_hora = datetime(ano,mes,dia,hora,minuto)
+        data_hora = datetime(ano, mes, dia, hora, minuto)
         par_string_data = (string, data_hora)
         lista_strings_data.append(par_string_data)
-    lista_strings_data.sort(key=lambda i:i[1], reverse=True)
+    lista_strings_data.sort(key=lambda i: i[1], reverse=True)
     nova_lista_strings = []
     for str in lista_strings_data:
         nova_lista_strings.append(str[0])

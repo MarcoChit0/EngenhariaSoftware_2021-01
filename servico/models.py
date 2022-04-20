@@ -8,6 +8,10 @@ from usuario.models import Cliente, Medico, Professor
 class Servico(models.Model):
     data_hora = models.DateTimeField()
 
+    @staticmethod
+    def buscar_por_cliente(cliente: Cliente):
+        raise NotImplemented
+
     class Meta:
         abstract = True
 
@@ -20,6 +24,12 @@ class Aula(Servico):
 
     class Meta:
         unique_together = (('professor', 'data_hora'))
+
+    # Query: buscar aulas ofertadas para um determinado id (passado e futuro)
+    @staticmethod
+    def buscar_por_cliente(cliente: Cliente):
+        return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
+
 
     def __str__(self):
         prof = self.professor.name
@@ -38,6 +48,11 @@ class Consulta(Servico):
 
     class Meta:
         unique_together = (('medico', 'data_hora'))
+
+    # Queries
+    @staticmethod
+    def buscar_por_cliente(cliente: Cliente):
+        return Consulta.objects.filter(cliente=cliente).order_by('-data_hora')
 
     def __str__(self):
             med = self.medico.name
