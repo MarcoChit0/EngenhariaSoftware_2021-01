@@ -99,8 +99,16 @@ def consultar_servicos(request, cliente_id):
     except:
         raise HttpResponseBadRequest("Cliente não encontrado")
     try:
+        # TODO: Como implementar os filtros?
         consultas = Consulta.buscar_por_cliente(cliente)
+        # Para fazer os filtros
+        consultas_passadas = consultas.filter(data_hora__lt=datetime.now())
+        consultas_futuras  = consultas.filter(data_hora__gte=datetime.now())
         aulas = Aula.buscar_por_cliente(cliente)
+        # Para fazer os filtros
+        aulas_passadas = aulas.filter(data_hora__lt=datetime.now())
+        aulas_futuras  = aulas.filter(data_hora__gte=datetime.now())
+
         context = {'lista_consultas_medicas': consultas,
                    'lista_aulas': aulas}
         return render(request, 'geral/consultar.html', context)
@@ -127,9 +135,12 @@ def reservar_aula(request, cliente_id, aula_id):
     if aula.alunos.count() >= aula.max_alunos:
         return HttpResponse(f'Essa aula já está cheia. Cancelando operação.')
 
-    aula.alunos.add(aluno)
+    success = aula.add_aluno(aluno)
+    if not success:
+        return HttpResponse(f'Essa aula já está cheia. Cancelando operação.')
+
     aula.save()
-    # Para garantir que o aluno ta ai
+    # Para garantir que o aluno ta ai, pega o aluno do banco de dados
     saved_aluno = aula.alunos.filter(id__exact=cliente_id)[0]
     return HttpResponse(
         f'Aula reservada!\n\tHorário: {aula.data_hora}\n\tProfessor: {aula.professor}\n\tAluno: {saved_aluno}')

@@ -1,9 +1,11 @@
+import django.db
 from django.db import models
 from django.db.models import CheckConstraint, Q
 
 from especialidade.models import Especialidade
 
 from usuario.models import Cliente, Medico, Professor
+
 
 class Servico(models.Model):
     data_hora = models.DateTimeField()
@@ -16,16 +18,45 @@ class Servico(models.Model):
         abstract = True
 
 
+# ATENÇÃO, USAR self.add_aluno ao inves de self.alunos.add, para garantir max_alunos
 class Aula(Servico):
     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
     especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE)
     max_alunos = models.IntegerField()
-    alunos = models.ManyToManyField(Cliente, blank=True, max_length=max_alunos)
+    alunos = models.ManyToManyField(Cliente, blank=True)
 
     class Meta:
         unique_together = (('professor', 'data_hora'))
 
-    # Query: buscar aulas ofertadas para um determinado id (passado e futuro)
+    # Queries
+    """ add_aluno: adiciona um aluno caso haja vagas
+        Observação: 
+        Não salva no banco de dados, a operação save() deve ser usada
+        em sequência
+        
+        params:
+        aluno: Cliente que será cadastrado caso exista vagas
+        
+        return:
+        True  - caso operação seja bem suscedida
+        False - caso não tenha sido possível adicionar o aluno
+    """
+    def add_aluno(self, aluno: Cliente):
+        if self.alunos.count() < self.max_alunos:
+            self.alunos.add(aluno)
+            return True
+        else:
+            return False
+
+    """ buscar_por_cliente: busca aulas de um determinado cliente
+
+        params:
+        cliente: Cliente que será buscado
+
+        return:
+        None  - caso operação seja bem suscedida
+        Erro - caso não seja possível achar o cliente
+    """
     @staticmethod
     def buscar_por_cliente(cliente: Cliente):
         return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
@@ -50,6 +81,15 @@ class Consulta(Servico):
         unique_together = (('medico', 'data_hora'))
 
     # Queries
+    """ buscar_por_cliente: busca consultas de um determinado cliente
+
+        params:
+        cliente: Cliente que será buscado
+
+        return:
+        None  - caso operação seja bem suscedida
+        Erro - caso não seja possível achar o cliente
+    """
     @staticmethod
     def buscar_por_cliente(cliente: Cliente):
         return Consulta.objects.filter(cliente=cliente).order_by('-data_hora')
