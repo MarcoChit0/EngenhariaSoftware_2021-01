@@ -8,6 +8,28 @@ from datetime import datetime
 # Esse é o controller
 
 from .models import *
+from .forms import *
+
+def get_servicos(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'GET':
+        # create a form instance and populate it with data from the request:
+        form = PesquisaServico(request.GET)
+        context = {'form': form}
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            context['id_cliente'] = form.cleaned_data['id_cliente']
+            return HttpResponse('/THAKS/')
+
+    # if a POST (or any other method) we'll create a blank form
+    else:
+        form = PesquisaServico()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_busca.html', context)
 
 
 def index(request):
@@ -93,21 +115,25 @@ def consultar_consulta_medica(request, cliente_id):
         raise HttpResponseServerError("Erro")
 
 
-def consultar_servicos(request, cliente_id):
+def consultar_servicos(request):
+    cliente_id = request.GET['id_cliente']
     try:
         cliente = Cliente.objects.get(pk=cliente_id)
     except:
         raise HttpResponseBadRequest("Cliente não encontrado")
+
     try:
-        # TODO: Como implementar os filtros?
-        consultas = Consulta.buscar_por_cliente(cliente)
-        # Para fazer os filtros
-        consultas_passadas = consultas.filter(data_hora__lt=datetime.now())
-        consultas_futuras  = consultas.filter(data_hora__gte=datetime.now())
-        aulas = Aula.buscar_por_cliente(cliente)
-        # Para fazer os filtros
-        aulas_passadas = aulas.filter(data_hora__lt=datetime.now())
-        aulas_futuras  = aulas.filter(data_hora__gte=datetime.now())
+        if request.GET['tempo_consulta'] == 'consultar_anteriores':
+            consultas = Consulta.buscar_por_cliente(cliente, futuras=False)
+            aulas = Consulta.buscar_por_cliente(cliente, futuras=False)
+
+        elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            consultas = Consulta.buscar_por_cliente(cliente, passadas=False)
+            aulas = Consulta.buscar_por_cliente(cliente, passadas=False)
+
+        else: # opção consultar todos
+            consultas = Consulta.buscar_por_cliente(cliente)
+            aulas = Consulta.buscar_por_cliente(cliente)
 
         context = {'lista_consultas_medicas': consultas,
                    'lista_aulas': aulas}

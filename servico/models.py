@@ -1,6 +1,7 @@
+from datetime import datetime
+
 import django.db
 from django.db import models
-from django.db.models import CheckConstraint, Q
 
 from especialidade.models import Especialidade
 
@@ -11,7 +12,7 @@ class Servico(models.Model):
     data_hora = models.DateTimeField()
 
     @staticmethod
-    def buscar_por_cliente(cliente: Cliente):
+    def buscar_por_cliente(cliente: Cliente, passadas=True, futuras=True):
         raise NotImplemented
 
     class Meta:
@@ -52,14 +53,21 @@ class Aula(Servico):
 
         params:
         cliente: Cliente que será buscado
+        passadas=True: Busca consultas passadas
+        futuras=True: Busca consultas futuras
 
         return:
         None  - caso operação seja bem suscedida
         Erro - caso não seja possível achar o cliente
     """
     @staticmethod
-    def buscar_por_cliente(cliente: Cliente):
-        return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
+    def buscar_por_cliente(cliente: Cliente, passadas=True, futuras=True):
+        if not futuras:
+            return Aula.objects.filter(alunos=cliente, data_hora__lt=datetime.now()).order_by('-data_hora')
+        elif not passadas:
+            return Aula.objects.filter(alunos=cliente, data_hora__gte=datetime.now()).order_by('-data_hora')
+        else:
+            return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
 
 
     def __str__(self):
@@ -85,14 +93,21 @@ class Consulta(Servico):
 
         params:
         cliente: Cliente que será buscado
+        passadas=True: Busca consultas passadas
+        futuras=True: Busca consultas futuras
 
         return:
         None  - caso operação seja bem suscedida
         Erro - caso não seja possível achar o cliente
     """
     @staticmethod
-    def buscar_por_cliente(cliente: Cliente):
-        return Consulta.objects.filter(cliente=cliente).order_by('-data_hora')
+    def buscar_por_cliente(cliente: Cliente, passadas=True, futuras=True):
+        if not futuras:
+            return Consulta.objects.filter(cliente=cliente, data_hora__lt=datetime.now()).order_by('-data_hora')
+        elif not passadas:
+            return Consulta.objects.filter(cliente=cliente, data_hora__gte=datetime.now()).order_by('-data_hora')
+        else:
+            return Consulta.objects.filter(cliente=cliente).order_by('-data_hora')
 
     def __str__(self):
             med = self.medico.name
