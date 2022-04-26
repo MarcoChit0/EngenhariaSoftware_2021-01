@@ -16,7 +16,7 @@ def index(request):
 
 # verificar se cliente é válido
 @csrf_exempt
-def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
+def cadastrar_aula(request, professor_id, especialidade_id, timestamp,max_alunos):
     try:
         professor = Professor.objects.get(pk=professor_id)
     except:
@@ -34,9 +34,11 @@ def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
 
     if data_hora < datetime.now():
         raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
+    if max_alunos < 0:
+        raise HttpResponseBadRequest("Não é permitidos alunos negativos")
 
     try:
-        nova_aula = Aula(data_hora=data_hora, professor=professor, especialidade=especialidade)
+        nova_aula = Aula(data_hora=data_hora, professor=professor, especialidade=especialidade, max_alunos=max_alunos)
         nova_aula.save()
         return HttpResponse("Aula criada com sucesso!")
     except:

@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servico/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,24 +30,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlite&quot;
-    ]
-  }
-}</component>
-  <component name="RunManager" selected="Django tests.Test: servico.tests.AulasModelTest">
+  <component name="RunManager">
     <configuration name="Test: servico.tests.AulasModelTest" type="DjangoTestsConfigurationType" temporary="true">
       <module name="EngenhariaSoftware_2021-01" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -171,15 +155,6 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Django tests.Test: servico.tests.AulasModelTest" />
-        <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_cheia" />
-        <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_com_vaga" />
-        <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_criar_aula_sem_aluno" />
-        <item itemvalue="Django tests.Test: servico.tests.ConsultaModelTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -212,16 +187,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_ServicoModelTest_teste_buscar_consulta_cliente.coverage" NAME="Test: servico.tests.ServicoModelTest.teste_buscar_consulta_cliente Coverage Results" MODIFIED="1650732288909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_ServicoModelTest_teste_criar_consulta_sem_cliente.coverage" NAME="Test: servico.tests.ServicoModelTest.teste_criar_consulta_sem_cliente Coverage Results" MODIFIED="1650730705815" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_AulasModelTest_teste_adicionar_aluno_aula_com_vaga.coverage" NAME="Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_com_vaga Coverage Results" MODIFIED="1650733578717" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_AulasModelTest.coverage" NAME="Test: servico.tests.AulasModelTest Coverage Results" MODIFIED="1650734453607" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_AulasModelTest_teste_criar_aula_sem_aluno.coverage" NAME="Test: servico.tests.AulasModelTest.teste_criar_aula_sem_aluno Coverage Results" MODIFIED="1650733249783" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_ServicoModelTest_teste_busca_consulta_cliente_sem_consulta.coverage" NAME="Test: servico.tests.ServicoModelTest.teste_busca_consulta_cliente_sem_consulta Coverage Results" MODIFIED="1650732382610" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_AulasModelTest_teste_adicionar_aluno_aula_cheia.coverage" NAME="Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_cheia Coverage Results" MODIFIED="1650734435380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_ServicoModelTest.coverage" NAME="Test: servico.tests.ServicoModelTest Coverage Results" MODIFIED="1650732203550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/EngenhariaSoftware_2021_01$Test__servico_tests_ConsultaModelTest.coverage" NAME="Test: servico.tests.ConsultaModelTest Coverage Results" MODIFIED="1650732951740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
