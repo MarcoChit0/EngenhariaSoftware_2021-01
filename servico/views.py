@@ -1,35 +1,12 @@
 from copy import deepcopy
-from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from json import *
-from datetime import datetime
 # Esse é o controller
 
 from .models import *
 from .forms import *
-
-def get_servicos(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'GET':
-        # create a form instance and populate it with data from the request:
-        form = PesquisaServico(request.GET)
-        context = {'form': form}
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            context['id_cliente'] = form.cleaned_data['id_cliente']
-            return HttpResponse('/THAKS/')
-
-    # if a POST (or any other method) we'll create a blank form
-    else:
-        form = PesquisaServico()
-        context = {'form': form}
-
-    return render(request, 'forms/interface_busca.html', context)
 
 
 def index(request):
@@ -63,6 +40,28 @@ def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
         return HttpResponse("Aula criada com sucesso!")
     except:
         raise HttpResponseServerError("Erro na criação da aula")
+
+
+def gerar_consulta(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'GET':
+        # create a form instance and populate it with data from the request:
+        form = PesquisaServico(request.GET)
+        context = {'form': form}
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            context['id_cliente'] = form.cleaned_data['id_cliente']
+            return HttpResponse('/THAKS/')
+
+    # if a POST (or any other method) we'll create a blank form
+    else:
+        form = PesquisaServico()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_busca.html', context)
 
 
 # verificar se cliente é válido
