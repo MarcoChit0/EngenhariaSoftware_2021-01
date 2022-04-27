@@ -15,7 +15,7 @@ class User(models.Model):
 class Cliente(User):
     client_desde = models.DateTimeField('Cliente desde')
     status_assinatura = 'ativa'
-    payment_status = 'paid'  # 'not_paid'
+    payment_status = models.CharField(max_length=50, default='not_paid') # 'paid'
     payment_hist = []  # datas?
     next_trains = []  # datas?
     next_consultations = []  # datas?
