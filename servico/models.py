@@ -65,7 +65,7 @@ class Aula(Servico):
         if not futuras:
             return Aula.objects.filter(alunos=cliente, data_hora__lt=datetime.now()).order_by('-data_hora')
         elif not passadas:
-            return Aula.objects.filter(alunos=cliente, data_hora__gte=datetime.now()).order_by('-data_hora')
+            return Aula.objects.filter(alunos=cliente, data_hora__gt=datetime.now()).order_by('-data_hora')
         else:
             return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
 
@@ -105,7 +105,7 @@ class Consulta(Servico):
         if not futuras:
             return Consulta.objects.filter(cliente=cliente, data_hora__lt=datetime.now()).order_by('-data_hora')
         elif not passadas:
-            return Consulta.objects.filter(cliente=cliente, data_hora__gte=datetime.now()).order_by('-data_hora')
+            return Consulta.objects.filter(cliente=cliente, data_hora__gt=datetime.now()).order_by('-data_hora')
         else:
             return Consulta.objects.filter(cliente=cliente).order_by('-data_hora')
 
