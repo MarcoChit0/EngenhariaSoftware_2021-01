@@ -13,7 +13,7 @@ class User(models.Model):
         abstract = True
 
 class Cliente(User):
-    client_desde = models.DateTimeField('Cliente desde')
+    client_desde = models.DateTimeField('Cliente desde', auto_now_add=True)
     status_assinatura = 'ativa'
     payment_status = models.CharField(max_length=50, default='not_paid') # 'paid'
     payment_hist = []  # datas?
