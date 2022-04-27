@@ -1,13 +1,12 @@
 from copy import deepcopy
-from django.http import HttpResponse, Http404, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseServerError
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from json import *
-from datetime import datetime
 # Esse é o controller
 
 from .models import *
+from .forms import *
 
 
 def index(request):
@@ -43,6 +42,9 @@ def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
         raise HttpResponseServerError("Erro na criação da aula")
 
 
+
+
+
 # verificar se cliente é válido
 @csrf_exempt
 def cadastrar_consulta_medica(request, medico_id, timestamp):
@@ -67,47 +69,120 @@ def cadastrar_consulta_medica(request, medico_id, timestamp):
         raise HttpResponseServerError("Erro na criação da aula")
 
 
-def consultar_aula(request, cliente_id):
+def gerar_consulta_consulta_medica(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = PesquisaServico(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Pesquisa feita/')
+
+    # Se não, cria um formulário em branco
+    else:
+        form = PesquisaServico()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_busca_consulta_medica.html', context)
+
+
+def gerar_consulta_aula(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = PesquisaServico(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Pesquisa feita/')
+
+    # Se não, cria um formulário em branco
+    else:
+        form = PesquisaServico()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_busca_aulas.html', context)
+
+
+def consultar_aula(request):
+    cliente_id = request.GET['id_cliente']
     try:
         cliente = Cliente.objects.get(pk=cliente_id)
     except:
         raise HttpResponseBadRequest("Cliente não encontrado")
+
     try:
-        aulas = Aula.buscar_por_cliente(cliente)
+        if request.GET['tempo_consulta'] == 'consultar_anteriores':
+            aulas = Aula.buscar_por_cliente(cliente, futuras=False)
+
+        elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            aulas = Aula.buscar_por_cliente(cliente, passadas=False)
+
+        else:  # opção consultar todos
+            consultas = Consulta.buscar_por_cliente(cliente)
+            aulas = Aula.buscar_por_cliente(cliente)
+
         context = {'lista_aulas': aulas}
         return render(request, 'aula/consultar.html', context)
     except:
         raise HttpResponseServerError("Erro")
 
 
-def consultar_consulta_medica(request, cliente_id):
+def consultar_consulta_medica(request):
+    cliente_id = request.GET['id_cliente']
     try:
         cliente = Cliente.objects.get(pk=cliente_id)
     except:
         raise HttpResponseBadRequest("Cliente não encontrado")
+
     try:
-        consultas = Consulta.buscar_por_cliente(cliente)
+        if request.GET['tempo_consulta'] == 'consultar_anteriores':
+            consultas = Consulta.buscar_por_cliente(cliente, futuras=False)
+
+        elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            consultas = Consulta.buscar_por_cliente(cliente, passadas=False)
+
+        else:  # opção consultar todos
+            consultas = Consulta.buscar_por_cliente(cliente)
+
         context = {'lista_consultas_medicas': consultas}
+
         return render(request, 'consulta_medica/consultar.html', context)
     except:
         raise HttpResponseServerError("Erro")
 
 
-def consultar_servicos(request, cliente_id):
+def gerar_consulta_todos(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = PesquisaServico(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Pesquisa feita/')
+
+    # Se não, cria um formulário em branco
+    else:
+        form = PesquisaServico()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_busca_geral.html', context)
+
+def consultar_servicos(request):
+    cliente_id = request.GET['id_cliente']
     try:
         cliente = Cliente.objects.get(pk=cliente_id)
     except:
         raise HttpResponseBadRequest("Cliente não encontrado")
+
     try:
-        # TODO: Como implementar os filtros?
-        consultas = Consulta.buscar_por_cliente(cliente)
-        # Para fazer os filtros
-        consultas_passadas = consultas.filter(data_hora__lt=datetime.now())
-        consultas_futuras  = consultas.filter(data_hora__gte=datetime.now())
-        aulas = Aula.buscar_por_cliente(cliente)
-        # Para fazer os filtros
-        aulas_passadas = aulas.filter(data_hora__lt=datetime.now())
-        aulas_futuras  = aulas.filter(data_hora__gte=datetime.now())
+        if request.GET['tempo_consulta'] == 'consultar_anteriores':
+            consultas = Consulta.buscar_por_cliente(cliente, futuras=False)
+            aulas = Aula.buscar_por_cliente(cliente, futuras=False)
+
+        elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            consultas = Consulta.buscar_por_cliente(cliente, passadas=False)
+            aulas = Aula.buscar_por_cliente(cliente, passadas=False)
+
+        else: # opção consultar todos
+            consultas = Consulta.buscar_por_cliente(cliente)
+            aulas = Aula.buscar_por_cliente(cliente)
 
         context = {'lista_consultas_medicas': consultas,
                    'lista_aulas': aulas}
