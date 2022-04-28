@@ -62,23 +62,36 @@ def gerar_cadastro_aula(request):
 
     return render(request, 'forms/interface_cadastro_aula.html', context)
 
+def gerar_cadastro_consulta(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = CadastroConsultaMedica(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Serviço cadastrado com sucesso./')
 
-def cadastrar_consulta_medica(request, medico_id, timestamp):
+    # Se não, cria um formulário em branco
+    else:
+        form = CadastroConsultaMedica()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_cadastro_consulta_medica.html', context)
+
+
+def cadastrar_consulta_medica(request):
+    medico_id = request.GET['id_profissional']
     try:
         medico = Medico.objects.get(pk=medico_id)
     except:
         raise HttpResponseBadRequest("Erro! Medico inválido")
 
-    try:
-        data_hora = datetime.fromtimestamp(timestamp)
-    except:
-        raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
+    data = request.GET['data']
 
-    if data_hora < datetime.now():
-        raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
+    if datetime.datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.datetime.now().timestamp():
+        raise HttpResponseBadRequest("Não é permitido cadastrar aula no Passado")
 
     try:
-        nova_consulta = Consulta(data_hora=data_hora, medico=medico)
+        nova_consulta = Consulta(data_hora=data, medico=medico)
         nova_consulta.save()
         return HttpResponse("Consulta Médica criada com sucesso!")
     except:

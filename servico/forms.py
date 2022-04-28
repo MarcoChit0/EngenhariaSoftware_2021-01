@@ -22,6 +22,10 @@ class CadastroAula(forms.Form):
     especialidade = fields.IntegerField(label='Id da Especialidade')
     data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
 
+class CadastroConsultaMedica(forms.Form):
+    id_profissional = fields.IntegerField(label='Id do profissional')
+    data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
+
 
 
 
