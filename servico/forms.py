@@ -1,5 +1,6 @@
 from django.forms import forms, fields
 import django
+import datetime
 
 OPCOES_TEMPO = [
     ('consultar_anteriores', 'consultar servicos anteriores'),
@@ -14,5 +15,13 @@ class PesquisaServico(forms.Form):
         widget=django.forms.RadioSelect,
         choices=OPCOES_TEMPO,
     )
+
+class CadastroAula(forms.Form):
+    id_profissional = fields.IntegerField(label='Id do profissional')
+    max_alunos = fields.IntegerField(label='Numero máximo de alunos')
+    especialidade = fields.IntegerField(label='Id da Especialidade')
+    data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
+
+
 
 
