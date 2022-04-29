@@ -42,5 +42,4 @@ class ContratarConsultaMedicaForm(forms.Form):
     opcoes_consultas = []
     for c in consultas:
         opcoes_consultas.append((c.pk, c))
-        print(c)
     id_consulta_medica = fields.ChoiceField(label='Id da consulta',choices=opcoes_consultas)
