@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import datetime
 
 import django.db
@@ -68,7 +69,10 @@ class Aula(Servico):
             return Aula.objects.filter(alunos=cliente, data_hora__gt=datetime.now()).order_by('-data_hora')
         else:
             return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
-
+    
+    def aulas_disponiveis():
+        # TODO: a ser alterado para que sejam mostradas apenas as aulas futuras
+        return Aula.objects.all()
 
     def __str__(self):
         prof = self.professor.name
@@ -117,3 +121,7 @@ class Consulta(Servico):
             minuto = self.data_hora.minute
             ano = self.data_hora.year
             return f"{med}; {dia}/{mes}/{ano}; {hora}:{minuto}"
+
+    def consultas_medicas_disponiveis():
+        # TODO: a ser alterado - colocar apenas as consultas futuras
+        return Consulta.objects.all()

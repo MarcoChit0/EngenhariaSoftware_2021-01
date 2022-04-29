@@ -1,5 +1,5 @@
 from copy import deepcopy
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect, HttpResponseServerError
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -191,7 +191,9 @@ def consultar_servicos(request):
         raise HttpResponseServerError("Erro")
 
 
-def reservar_aula(request, cliente_id, aula_id):
+def reservar_aula(request):
+    cliente_id = int(request.POST['id_cliente'])
+    aula_id = int(request.POST['id_aula'])
     try:
         aluno = Cliente.objects.get(pk=cliente_id)
     except:
@@ -204,7 +206,7 @@ def reservar_aula(request, cliente_id, aula_id):
     if aluno.status_assinatura != 'ativa':
         return HttpResponse(f'O aluno {aluno} não está com sua assinatura em dia. Cancelando operação.')
 
-    if aula.alunos.filter(id__exact=cliente_id)[0].id == cliente_id:
+    if len(aula.alunos.filter(id__exact=cliente_id)) != 0:
         return HttpResponse(f'Você ja está nessa aula. Cancelando operação.')
 
     if aula.alunos.count() >= aula.max_alunos:
@@ -221,7 +223,9 @@ def reservar_aula(request, cliente_id, aula_id):
         f'Aula reservada!\n\tHorário: {aula.data_hora}\n\tProfessor: {aula.professor}\n\tAluno: {saved_aluno}')
 
 
-def reservar_consulta_medica(request, cliente_id, consulta_medica_id):
+def reservar_consulta_medica(request):
+    cliente_id = int(request.POST['id_cliente'])
+    consulta_medica_id = int(request.POST['id_consulta_medica'])
     try:
         paciente = Cliente.objects.get(pk=cliente_id)
     except:
@@ -263,3 +267,37 @@ def ordena_consultas(lista_strings):
     for str in lista_strings_data:
         nova_lista_strings.append(str[0])
     return nova_lista_strings
+
+def gerar_formulario_contratar_aula(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ContratarAulaForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ContratarAulaForm()
+
+    return render(request, 'contratar-servicos/contratar-servico.html', {'form': form})
+
+def gerar_formulario_contratar_consulta_medica(request):
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ContratarConsultaMedicaForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/thanks/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ContratarConsultaMedicaForm()
+
+    return render(request, 'contratar-servicos/contratar-servico.html', {'form': form})

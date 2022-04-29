@@ -13,6 +13,8 @@ urlpatterns = [
     path('consulta-medica/consultar/', views.consultar_consulta_medica, name='consultar_consulta'),
     path('todos/gerar-consulta/', views.gerar_consulta_todos),
     path('todos/consultar/', views.consultar_servicos, name='consultar_servicos'),
-    path('aula/reservar/<int:cliente_id>/<int:aula_id>/', views.reservar_aula, name='reservar_aula'),
-    path('consulta-medica/reservar/<int:cliente_id>/<int:consulta_medica_id>/', views.reservar_consulta_medica, name='reservar_consulta_medica'),
+    path('aula/reservar/efetuar-reserva/', views.reservar_aula, name='reservar_aula'),
+    path('consulta-medica/reservar/efetuar-reserva/', views.reservar_consulta_medica, name='reservar_consulta_medica'),
+    path('aula/reservar/', views.gerar_formulario_contratar_aula),
+    path('consulta-medica/reservar/', views.gerar_formulario_contratar_consulta_medica)
 ]
