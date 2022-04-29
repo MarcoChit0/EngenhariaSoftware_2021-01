@@ -35,7 +35,7 @@ def cadastrar_aula(request):
         raise HttpResponseBadRequest("Não é permitido quantidade negativa de alunos")
 
     data = request.GET['data']
-    if datetime.datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.datetime.now().timestamp():
+    if datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.now().timestamp():
         raise HttpResponse("Não é permitido cadastrar aula no Passado")
     try:
         nova_aula = Aula(data_hora=data, professor=professor, max_alunos=max_alunos, especialidade=especialidade)
@@ -87,7 +87,7 @@ def cadastrar_consulta_medica(request):
 
     data = request.GET['data']
 
-    if datetime.datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.datetime.now().timestamp():
+    if datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.now().timestamp():
         raise HttpResponseBadRequest("Não é permitido cadastrar aula no Passado")
 
     try:

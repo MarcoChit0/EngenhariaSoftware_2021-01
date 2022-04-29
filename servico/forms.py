@@ -1,12 +1,14 @@
 from django.forms import forms, fields
 import django
-import datetime
+
+from especialidade.models import Especialidade
 
 OPCOES_TEMPO = [
     ('consultar_anteriores', 'consultar servicos anteriores'),
     ('consultar_futuros', 'consultar servicos futuros'),
     ('consultar_todos', 'consultar servicos anteriores e futuros'),
 ]
+
 
 class PesquisaServico(forms.Form):
     id_cliente = fields.IntegerField(label='Id do cliente')
@@ -16,16 +18,21 @@ class PesquisaServico(forms.Form):
         choices=OPCOES_TEMPO,
     )
 
+
 class CadastroAula(forms.Form):
+    especialidades = Especialidade.objects.all()
+    choices = []
+    for esp in especialidades:
+        choices.append((esp.pk, esp))
+
     id_profissional = fields.IntegerField(label='Id do profissional')
     max_alunos = fields.IntegerField(label='Numero máximo de alunos')
-    especialidade = fields.IntegerField(label='Id da Especialidade')
+    especialidade = fields.ChoiceField(label='Id da Especialidade',
+                                       choices=choices)
+
     data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
+
 
 class CadastroConsultaMedica(forms.Form):
     id_profissional = fields.IntegerField(label='Id do profissional')
     data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
-
-
-
-
