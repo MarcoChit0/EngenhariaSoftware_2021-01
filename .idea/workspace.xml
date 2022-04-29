@@ -7,12 +7,7 @@
     <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="Implemented tests+add_aluno">
       <change afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_aulas.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_geral.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_consulta_medica.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,25 +36,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/jordi/Documentos/Semestre/ES/EngenhariaSoftware_2021-01/servico/templates/forms",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/jordi/Documentos/Semestre/ES/EngenhariaSoftware_2021-01/servico/templates/forms&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/servico/templates/forms" />
@@ -220,6 +215,7 @@
       <workItem from="1651012894384" duration="2571000" />
       <workItem from="1651018889169" duration="46000" />
       <workItem from="1651085840315" duration="1110000" />
+      <workItem from="1651257466629" duration="707000" />
     </task>
     <servers />
   </component>
