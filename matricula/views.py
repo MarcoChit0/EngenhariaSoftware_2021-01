@@ -33,11 +33,9 @@ def realizar_matricula(request):
             user = Cliente(name=name, password=password)
             user.save()
 
+            context = {'numero': numero, 'saldo': saldo, 'validade': validade, 'cvv': cvv, 'cliente_id': user.id}
 
-
-            # TODO: mandar pro cadastro de cartão/pagamento
-            # <str:numero>/<int:saldo>/<int:validade>/<int:cvv>/<int:cliente_id>
-            return HttpResponseRedirect(f'/cartao/cadastrar/{numero}/{saldo}/{validade}/{cvv}/{user.id}/')
+            return render('cartao/cadastrar.html', context=context)
 
     # if a GET (or any other method) we'll create a blank form
     else:
