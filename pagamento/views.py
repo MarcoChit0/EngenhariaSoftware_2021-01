@@ -23,7 +23,7 @@ def cadastrar_cartao_de_credito(request, numero, saldo, validade, cvv, cliente_i
 
 
 @csrf_exempt
-def realizar_pagamento(request, cliente_id, valor):
+def realizar_pagamento(request, cliente_id, valor, cartao_id):
     try:
         cliente = Cliente.objects.get(pk=cliente_id)
     except:
