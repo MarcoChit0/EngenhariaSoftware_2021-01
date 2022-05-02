@@ -16,7 +16,11 @@ OPCOES_TEMPO = [
 
 
 class PesquisaServico(forms.Form):
-    id_cliente = fields.IntegerField(label='Id do cliente')
+    clientes = Cliente.objects.all()
+    opcoes_clientes = []
+    for c in clientes:
+        opcoes_clientes.append((c.pk, c))
+    id_cliente = fields.ChoiceField(label='Id do cliente', choices=opcoes_clientes)
     tempo_consulta = fields.MultipleChoiceField(
         required=True,
         widget=django.forms.RadioSelect,

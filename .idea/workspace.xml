@@ -7,7 +7,10 @@
     <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="Implemented tests+add_aluno">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca_aulas.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_aulas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca_consulta_medica.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_consulta_medica.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca_geral.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_geral.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servico/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,15 +40,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/manage.py" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/servico/templates/forms" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.manage">
+  <component name="RunManager" selected="Django Server.EngenhariaSoftware_2021-01">
     <configuration name="Test: servico.tests.AulasModelTest" type="DjangoTestsConfigurationType" temporary="true">
       <module name="EngenhariaSoftware_2021-01" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -158,6 +167,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
       <option name="PARAMETERS" value="runserver" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -175,7 +185,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="gestao_academia.settings" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -192,6 +202,12 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Django Server.EngenhariaSoftware_2021-01" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_cheia" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_com_vaga" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_criar_aula_sem_aluno" />
+      <item itemvalue="Django tests.Test: servico.tests.ConsultaModelTest" />
       <item itemvalue="Python.manage" />
     </list>
   </component>
@@ -216,6 +232,7 @@
       <workItem from="1651018889169" duration="46000" />
       <workItem from="1651085840315" duration="1110000" />
       <workItem from="1651257466629" duration="1412000" />
+      <workItem from="1651520439197" duration="449000" />
     </task>
     <servers />
   </component>
