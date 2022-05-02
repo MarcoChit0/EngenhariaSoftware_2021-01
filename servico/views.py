@@ -1,3 +1,4 @@
+import datetime
 from copy import deepcopy
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseBadRequest, HttpResponseRedirect, \
     HttpResponseServerError
@@ -16,54 +17,82 @@ def index(request):
 
 # verificar se cliente é válido
 @csrf_exempt
-def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
-    try:
-        professor = Professor.objects.get(pk=professor_id)
-    except:
-        raise HttpResponseBadRequest("Erro! Professor inválido")
 
+def cadastrar_aula(request):
+    id_profissional = request.GET['id_profissional']
+    try:
+        professor = Professor.objects.get(pk=id_profissional)
+    except:
+        raise HttpResponseBadRequest("Profissional não cadastrado no Sistema")
+
+    especialidade_id = request.GET['especialidade']
     try:
         especialidade = Especialidade.objects.get(pk=especialidade_id)
     except:
-        raise HttpResponseBadRequest("Erro! Especialidade inválida")
+        raise HttpResponseBadRequest("Especialidade não cadastrada no Sistema")
 
+    max_alunos = int(request.GET['max_alunos'])
+    if max_alunos < 0:
+        raise HttpResponseBadRequest("Não é permitido quantidade negativa de alunos")
+
+    data = request.GET['data']
+    if datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.now().timestamp():
+        raise HttpResponse("Não é permitido cadastrar aula no Passado")
     try:
-        data_hora = datetime.fromtimestamp(timestamp)
-    except:
-        raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
-
-    if data_hora < datetime.now():
-        raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
-
-    try:
-        nova_aula = Aula(data_hora=data_hora, professor=professor, especialidade=especialidade)
+        nova_aula = Aula(data_hora=data, professor=professor, max_alunos=max_alunos, especialidade=especialidade)
         nova_aula.save()
         return HttpResponse("Aula criada com sucesso!")
     except:
         raise HttpResponseServerError("Erro na criação da aula")
 
 
-
-
-
 # verificar se cliente é válido
 @csrf_exempt
+def gerar_cadastro_aula(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = CadastroAula(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Serviço cadastrado com sucesso./')
+
+    # Se não, cria um formulário em branco
+    else:
+        form = CadastroAula()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_cadastro_aula.html', context)
+
+def gerar_cadastro_consulta(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = CadastroConsultaMedica(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Serviço cadastrado com sucesso./')
+
+    # Se não, cria um formulário em branco
+    else:
+        form = CadastroConsultaMedica()
+        context = {'form': form}
+
+    return render(request, 'forms/interface_cadastro_consulta_medica.html', context)
+
+
 def cadastrar_consulta_medica(request):
+    medico_id = request.GET['id_profissional']
     try:
         medico = Medico.objects.get(pk=request.GET['medico_id'])
     except:
         raise HttpResponseBadRequest("Erro! Medico inválido")
 
-    try:
-        data_hora = datetime.fromtimestamp(timestamp)
-    except:
-        raise HttpResponseBadRequest("Erro! Data inválida - timespamp incorreto")
+    data = request.GET['data']
 
-    if data_hora < datetime.now():
-        raise HttpResponseBadRequest("Erro! Data inválida - data informada no passado")
+    if datetime.strptime(data, '%Y-%m-%d %H:%M:%S').timestamp() < datetime.now().timestamp():
+        raise HttpResponseBadRequest("Não é permitido cadastrar aula no Passado")
 
     try:
-        nova_consulta = Consulta(data_hora=data_hora, medico=medico)
+        nova_consulta = Consulta(data_hora=data, medico=medico)
         nova_consulta.save()
         print('asd')
         return HttpResponse("Consulta Médica criada com sucesso!")

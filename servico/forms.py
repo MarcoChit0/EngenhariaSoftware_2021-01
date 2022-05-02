@@ -3,6 +3,8 @@ from xmlrpc.client import DateTime
 from django.forms import forms, fields
 import django
 
+from especialidade.models import Especialidade
+
 from servico.models import Aula, Consulta, Servico
 from usuario.models import Cliente
 
@@ -11,6 +13,7 @@ OPCOES_TEMPO = [
     ('consultar_futuros', 'consultar servicos futuros'),
     ('consultar_todos', 'consultar servicos anteriores e futuros'),
 ]
+
 
 class PesquisaServico(forms.Form):
     id_cliente = fields.IntegerField(label='Id do cliente')
@@ -37,6 +40,24 @@ class CadastrarConsulta(forms.Form):
                                      input_formats=['%d/%m/%Y %H:%M'],
                                      required=True,
                                      help_text='28/04/2022 14:00')
+
+class CadastroAula(forms.Form):
+    especialidades = Especialidade.objects.all()
+    choices = []
+    for esp in especialidades:
+        choices.append((esp.pk, esp))
+
+    id_profissional = fields.IntegerField(label='Id do profissional')
+    max_alunos = fields.IntegerField(label='Numero máximo de alunos')
+    especialidade = fields.ChoiceField(label='Id da Especialidade',
+                                       choices=choices)
+
+    data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
+
+
+class CadastroConsultaMedica(forms.Form):
+    id_profissional = fields.IntegerField(label='Id do profissional')
+    data = fields.DateTimeField(label="Data no formato (AAAA-MM-DD hh:mm:ss): ")
 
 class ContratarConsultaMedicaForm(forms.Form):
     clientes = Cliente.objects.all()
