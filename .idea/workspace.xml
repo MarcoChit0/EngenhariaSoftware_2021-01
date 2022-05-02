@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="Implemented tests+add_aluno">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca_aulas.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_aulas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca_consulta_medica.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_consulta_medica.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/templates/forms/interface_busca_geral.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/forms/interface_busca_geral.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servico/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,21 +36,12 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
-  }
-}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/servico/templates/forms" />
     </key>
   </component>
-  <component name="RunManager" selected="Django Server.EngenhariaSoftware_2021-01">
+  <component name="RunManager" selected="Python.manage">
     <configuration name="Test: servico.tests.AulasModelTest" type="DjangoTestsConfigurationType" temporary="true">
       <module name="EngenhariaSoftware_2021-01" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -202,12 +189,6 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Django Server.EngenhariaSoftware_2021-01" />
-      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest" />
-      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_cheia" />
-      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_com_vaga" />
-      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_criar_aula_sem_aluno" />
-      <item itemvalue="Django tests.Test: servico.tests.ConsultaModelTest" />
       <item itemvalue="Python.manage" />
     </list>
   </component>

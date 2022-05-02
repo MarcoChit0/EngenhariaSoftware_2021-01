@@ -235,7 +235,7 @@ def reservar_aula(request):
     except:
         raise HttpResponseForbidden('Erro! Aula não encontrada')
 
-    if aluno.status_assinatura != 'ativa':
+    if aluno.payment_status != 'paid':
         return HttpResponse(f'O aluno {aluno} não está com sua assinatura em dia. Cancelando operação.')
 
     if len(aula.alunos.filter(id__exact=cliente_id)) != 0:
