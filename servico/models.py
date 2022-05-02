@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import datetime
 
 import django.db
@@ -68,7 +69,29 @@ class Aula(Servico):
             return Aula.objects.filter(alunos=cliente, data_hora__gt=datetime.now()).order_by('-data_hora')
         else:
             return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
-
+    
+    def aulas_disponiveis():
+        aulas =  Aula.objects.all()
+        lista_par_aula_data = []
+        for aula in aulas:
+            if aula.alunos.count() < aula.max_alunos:
+                s = deepcopy(str(aula))
+                substring = s.split(";")
+                dia_mes_ano = substring[1].split("/")
+                hora_minuto = substring[2].split(":")
+                dia = int(dia_mes_ano[0])
+                mes = int(dia_mes_ano[1])
+                ano = int(dia_mes_ano[2])
+                hora = int(hora_minuto[0])
+                minuto = int(hora_minuto[1])
+                data_hora = datetime(ano, mes, dia, hora, minuto)
+                par_aula_data = (aula, data_hora)
+                lista_par_aula_data.append(par_aula_data)
+        aulas_disponiveis = []
+        for par in lista_par_aula_data:
+            if(par[1] >= datetime.now()):
+                aulas_disponiveis.append(par[0])
+        return aulas_disponiveis
 
     def __str__(self):
         prof = self.professor.name
@@ -117,3 +140,26 @@ class Consulta(Servico):
             minuto = self.data_hora.minute
             ano = self.data_hora.year
             return f"{med}; {dia}/{mes}/{ano}; {hora}:{minuto}"
+
+    def consultas_medicas_disponiveis():
+        consultas =  Consulta.objects.all()
+        lista_par_consulta_data = []
+        for consulta in consultas:
+            if consulta.cliente is None:
+                s = deepcopy(str(consulta))
+                substring = s.split(";")
+                dia_mes_ano = substring[1].split("/")
+                hora_minuto = substring[2].split(":")
+                dia = int(dia_mes_ano[0])
+                mes = int(dia_mes_ano[1])
+                ano = int(dia_mes_ano[2])
+                hora = int(hora_minuto[0])
+                minuto = int(hora_minuto[1])
+                data_hora = datetime(ano, mes, dia, hora, minuto)
+                par_consulta_data = (consulta, data_hora)
+                lista_par_consulta_data.append(par_consulta_data)
+        consultas_disponiveis = []
+        for par in lista_par_consulta_data:
+            if(par[1] >= datetime.now()):
+                consultas_disponiveis.append(par[0])
+        return consultas_disponiveis
