@@ -1,4 +1,5 @@
 from copy import deepcopy
+from django.utils import timezone
 from datetime import datetime
 
 import django.db
@@ -64,12 +65,13 @@ class Aula(Servico):
     @staticmethod
     def buscar_por_cliente(cliente: Cliente, passadas=True, futuras=True):
         if not futuras:
-            return Aula.objects.filter(alunos=cliente, data_hora__lt=datetime.now()).order_by('-data_hora')
+            return Aula.objects.filter(alunos=cliente, data_hora__lt=timezone.now()).order_by('-data_hora')
         elif not passadas:
-            return Aula.objects.filter(alunos=cliente, data_hora__gt=datetime.now()).order_by('-data_hora')
+            return Aula.objects.filter(alunos=cliente, data_hora__gt=timezone.now()).order_by('-data_hora')
         else:
             return Aula.objects.filter(alunos=cliente).order_by('-data_hora')
-    
+
+    @staticmethod
     def aulas_disponiveis():
         aulas =  Aula.objects.all()
         lista_par_aula_data = []
@@ -126,9 +128,9 @@ class Consulta(Servico):
     @staticmethod
     def buscar_por_cliente(cliente: Cliente, passadas=True, futuras=True):
         if not futuras:
-            return Consulta.objects.filter(cliente=cliente, data_hora__lt=datetime.now()).order_by('-data_hora')
+            return Consulta.objects.filter(cliente=cliente, data_hora__lt=timezone.now()).order_by('-data_hora')
         elif not passadas:
-            return Consulta.objects.filter(cliente=cliente, data_hora__gt=datetime.now()).order_by('-data_hora')
+            return Consulta.objects.filter(cliente=cliente, data_hora__gt=timezone.now()).order_by('-data_hora')
         else:
             return Consulta.objects.filter(cliente=cliente).order_by('-data_hora')
 
@@ -141,6 +143,7 @@ class Consulta(Servico):
             ano = self.data_hora.year
             return f"{med}; {dia}/{mes}/{ano}; {hora}:{minuto}"
 
+    @staticmethod
     def consultas_medicas_disponiveis():
         consultas =  Consulta.objects.all()
         lista_par_consulta_data = []

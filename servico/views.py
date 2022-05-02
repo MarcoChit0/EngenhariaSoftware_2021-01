@@ -109,7 +109,7 @@ class Consultar:
             if request.GET['tempo_consulta'] == 'consultar_anteriores':
                 aulas = Aula.buscar_por_cliente(cliente, futuras=False)
 
-            elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            elif request.GET['tempo_consulta'] == 'consultar_futuros':
                 aulas = Aula.buscar_por_cliente(cliente, passadas=False)
 
             else:  # opção consultar todos
@@ -132,7 +132,7 @@ class Consultar:
             if request.GET['tempo_consulta'] == 'consultar_anteriores':
                 consultas = Consulta.buscar_por_cliente(cliente, futuras=False)
 
-            elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            elif request.GET['tempo_consulta'] == 'consultar_futuros':
                 consultas = Consulta.buscar_por_cliente(cliente, passadas=False)
 
             else:  # opção consultar todos
@@ -171,7 +171,7 @@ class Consultar:
                 consultas = Consulta.buscar_por_cliente(cliente, futuras=False)
                 aulas = Aula.buscar_por_cliente(cliente, futuras=False)
 
-            elif request.GET['tempo_consulta'] == 'consultar_futuras':
+            elif request.GET['tempo_consulta'] == 'consultar_futuros':
                 consultas = Consulta.buscar_por_cliente(cliente, passadas=False)
                 aulas = Aula.buscar_por_cliente(cliente, passadas=False)
 
