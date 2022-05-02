@@ -115,7 +115,7 @@ def gerar_consulta_consulta_medica(request):
 
         return render(request, 'forms/interface_busca_consulta_medica.html', context)
 
-    def gerar_consulta_aula(request):
+def gerar_consulta_aula(request):
         # Se entrar como GET, abre um formulário
         if request.method == 'GET':
             form = PesquisaServico(request.GET)
@@ -130,7 +130,7 @@ def gerar_consulta_consulta_medica(request):
 
         return render(request, 'forms/interface_busca_aulas.html', context)
 
-    def consultar_aula(request):
+def consultar_aula(request):
         cliente_id = request.GET['id_cliente']
         try:
             cliente = Cliente.objects.get(pk=cliente_id)
@@ -153,7 +153,7 @@ def gerar_consulta_consulta_medica(request):
         except:
             raise HttpResponseServerError("Erro")
 
-    def consultar_consulta_medica(request):
+def consultar_consulta_medica(request):
         cliente_id = request.GET['id_cliente']
         try:
             cliente = Cliente.objects.get(pk=cliente_id)
@@ -176,7 +176,7 @@ def gerar_consulta_consulta_medica(request):
         except:
             raise HttpResponseServerError("Erro")
 
-    def gerar_consulta_todos(request):
+def gerar_consulta_todos(request):
         # Se entrar como GET, abre um formulário
         if request.method == 'GET':
             form = PesquisaServico(request.GET)
@@ -191,7 +191,7 @@ def gerar_consulta_consulta_medica(request):
 
         return render(request, 'forms/interface_busca_geral.html', context)
 
-    def consultar_servicos(request):
+def consultar_servicos(request):
         cliente_id = request.GET['id_cliente']
         try:
             cliente = Cliente.objects.get(pk=cliente_id)
