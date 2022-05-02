@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Realizar Matrícula</title>
+</head>
+<body>
+
+    <h1>Por favor, preencha o formulário</h1>
+
+    <form action="/matricula/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Enviar">
+</form>
+
+</body>
+</html>
