@@ -43,11 +43,14 @@ def cadastrar_aula(request, professor_id, especialidade_id, timestamp):
         raise HttpResponseServerError("Erro na criação da aula")
 
 
+
+
+
 # verificar se cliente é válido
 @csrf_exempt
-def cadastrar_consulta_medica(request, medico_id, timestamp):
+def cadastrar_consulta_medica(request):
     try:
-        medico = Medico.objects.get(pk=medico_id)
+        medico = Medico.objects.get(pk=request.GET['medico_id'])
     except:
         raise HttpResponseBadRequest("Erro! Medico inválido")
 
@@ -62,19 +65,19 @@ def cadastrar_consulta_medica(request, medico_id, timestamp):
     try:
         nova_consulta = Consulta(data_hora=data_hora, medico=medico)
         nova_consulta.save()
+        print('asd')
         return HttpResponse("Consulta Médica criada com sucesso!")
     except:
         raise HttpResponseServerError("Erro na criação da aula")
 
 
-class Consultar:
-    def gerar_consulta_consulta_medica(request):
-        # Se entrar como GET, abre um formulário
-        if request.method == 'GET':
-            form = PesquisaServico(request.GET)
-            context = {'form': form}
-            if form.is_valid():
-                return HttpResponse('/Pesquisa feita/')
+def gerar_consulta_consulta_medica(request):
+    # Se entrar como GET, abre um formulário
+    if request.method == 'GET':
+        form = PesquisaServico(request.GET)
+        context = {'form': form}
+        if form.is_valid():
+            return HttpResponse('/Pesquisa feita/')
 
         # Se não, cria um formulário em branco
         else:

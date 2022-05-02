@@ -31,6 +31,12 @@ class ContratarAulaForm(forms.Form):
     for a in aulas:
         opcoes_aulas.append((a.pk, a))
     id_aula= fields.ChoiceField(label='Id da aula',choices=opcoes_aulas)
+class CadastrarConsulta(forms.Form):
+    id_medico = fields.IntegerField(label='Informe o Id do Médico:', required=True, )
+    timestamp = fields.DateTimeField(label='Informe a data e horário da aula: (ex: 28/04/2022 14:00)',
+                                     input_formats=['%d/%m/%Y %H:%M'],
+                                     required=True,
+                                     help_text='28/04/2022 14:00')
 
 class ContratarConsultaMedicaForm(forms.Form):
     clientes = Cliente.objects.all()
