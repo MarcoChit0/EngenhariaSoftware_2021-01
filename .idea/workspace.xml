@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/servico/templates/menu/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/servico/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gestao_academia/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/gestao_academia/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/templates/menu/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/servico/templates/menu/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servico/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +231,7 @@
       <workItem from="1651085840315" duration="1110000" />
       <workItem from="1651257466629" duration="1412000" />
       <workItem from="1651520439197" duration="449000" />
-      <workItem from="1651605418868" duration="2030000" />
+      <workItem from="1651605418868" duration="2412000" />
     </task>
     <servers />
   </component>
