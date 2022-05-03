@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="Implemented tests+add_aluno">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    <list default="true" id="f8a71b8f-4802-4be2-a565-82a2f180ba6c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/servico/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/servico/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/servico/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -189,6 +188,12 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Django Server.EngenhariaSoftware_2021-01" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_cheia" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_adicionar_aluno_aula_com_vaga" />
+      <item itemvalue="Django tests.Test: servico.tests.AulasModelTest.teste_criar_aula_sem_aluno" />
+      <item itemvalue="Django tests.Test: servico.tests.ConsultaModelTest" />
       <item itemvalue="Python.manage" />
     </list>
   </component>
