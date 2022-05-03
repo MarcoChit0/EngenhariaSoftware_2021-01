@@ -12,7 +12,7 @@ from .forms import *
 
 
 def index(request):
-    return HttpResponse("Olá, Mundo!")
+    return render(request, 'menu/index.html', {})
 
 
 class Cadastrar:
@@ -95,7 +95,6 @@ class Cadastrar:
         try:
             nova_consulta = Consulta(data_hora=data, medico=medico)
             nova_consulta.save()
-            print('asd')
             return HttpResponse("Consulta Médica criada com sucesso!")
         except:
             return HttpResponseServerError("Erro na criação da aula")

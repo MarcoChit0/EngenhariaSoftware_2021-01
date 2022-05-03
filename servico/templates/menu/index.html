@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Página inicial de gestão da academia</title>
+</head>
+<body>
+<title>Gestão da academia</title>
+<div id="div_adm">
+    <h1>Ferramentas do adimnistrador</h1>
+    <p>
+        Aqui você tem controle total da academia, incluindo:
+    </p>
+    <ul>
+        <li>Criar usuários (alunos e servidores)</li>
+        <li>God mode da gestão de seviços (alterar e deletar serviços)</li>
+    </ul>
+    <p>Usuário e senha: admin (não espalha, é secreto)</p>
+    <a href="../admin"><button>ir para admin</button></a>
+    <p>
+        Para as ferramentas do desenvolvedor, foi reutilizado o ambiente
+        de administrador nativo do Django
+    </p>
+</div>
+
+<div id="div_serviços">
+    <h1>Serviços contratados</h1>
+    <p>
+        Aqui você pode pesquisar, como cliente, todos os serviços passados e futuros:
+    </p>
+    <a href="./todos/gerar-consulta">
+        <button>Consultar serviços contratados</button>
+    </a>
+</div>
+
+<div id="div_aulas">
+    <h1>Aulas</h1>
+    <p>
+        Aqui você pode acessar as seguintes UCs ligadas a Aulas:
+    </p>
+    <ul>
+        <li><a href="./aula/gerar-cadastro_aula">
+            <button>Cadastrar Nova aula</button>
+        </a></li>
+        <li><a href="./aula/gerar-consulta">
+            <button>Consultar suas aulas (passadas e futuras)</button>
+        </a></li>
+        <li><a href="./aula/reservar">
+            <button>reservar uma aula</button>
+        </a></li>
+    </ul>
+</div>
+
+<div id="div_consultas">
+    <h1>Consultas Médicas</h1>
+    <p>
+        Aqui você pode acessar as seguintes UCs ligadas a Consultas médicas:
+    </p>
+    <ul>
+        <li><a href="./consulta-medica/gerar-cadastro-consulta-medica">
+            <button>Cadastrar Nova Consultas</button>
+        </a></li>
+        <li><a href="./consulta-medica/gerar-consulta">
+            <button>Consultar suas Consultas (passadas e futuras)</button>
+        </a></li>
+        <li><a href="./consulta-medica/reservar">
+            <button>reservar uma consulta aberta</button>
+        </a></li>
+    </ul>
+</div>
+</body>
+</html>
